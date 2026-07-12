@@ -1,0 +1,24 @@
+# ───────────────────────────────────────────────
+# Planet-Play .gitignore
+# Keeps compiled output, logs, and OS junk out of the repo.
+# Only source code, the README, and game assets should be tracked.
+# ───────────────────────────────────────────────
+
+# Compiled executable (SplashKit build output — no file extension).
+# The leading slash anchors this to the repo root, so it only ignores
+# the binary and never a folder that happens to share the name.
+/planet-play
+
+# Debug symbol bundles (created on macOS builds)
+*.dSYM/
+
+# Runtime / SplashKit logs
+*.log
+logs/
+myeasylog.log
+
+# macOS / editor / OS junk
+.DS_Store
+._*
+__MACOSX/
+.vscode/

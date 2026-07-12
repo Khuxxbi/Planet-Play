@@ -1,0 +1,8 @@
+// Ship
+BITMAP,aquarii-v,aquarii-v.png
+
+// Coin (6-frame sprite sheet: 26x26 cells, 6 columns, 1 row, 6 cells)
+BITMAP,gold_coin,gold_coin.png,26,26,6,1,6
+
+// Coin animation
+ANIM,coin_animation,coin_animation.txt
