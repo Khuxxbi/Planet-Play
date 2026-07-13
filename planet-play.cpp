@@ -8,11 +8,20 @@ int main()
 
     open_window("Planet Play - by Khubaib Ejaz", SCREEN_SIZE, SCREEN_SIZE);
 
-    bitmap ship = load_bitmap("aquarii", "aquarii-v.png");
+    // Load the ship, coin, and coin animation from the resource bundle.
+    load_resource_bundle("planet_play", "planet_play.txt");
+
+    bitmap ship = bitmap_named("aquarii-v");
 
     // Start the ship centred horizontally, near the bottom of the screen.
     double player_x = (SCREEN_SIZE - bitmap_width(ship)) / 2;
     double player_y = SCREEN_SIZE - bitmap_height(ship) - BOTTOM_GAP;
+
+    // Create the spinning coin and drop it at a random spot on the screen.
+    sprite coin = create_sprite("gold_coin", "coin_animation");
+    sprite_start_animation(coin, "spin");
+    sprite_set_x(coin, rnd(SCREEN_SIZE - sprite_width(coin)));
+    sprite_set_y(coin, rnd(SCREEN_SIZE - sprite_height(coin)));
 
     while (!quit_requested())
     {
@@ -36,8 +45,18 @@ int main()
             player_x -= SPEED;
         }
 
+        // When the ship touches the coin, move the coin to a new random spot.
+        if (sprite_bitmap_collision(coin, ship, player_x, player_y))
+        {
+            sprite_set_x(coin, rnd(SCREEN_SIZE - sprite_width(coin)));
+            sprite_set_y(coin, rnd(SCREEN_SIZE - sprite_height(coin)));
+        }
+
+        update_sprite(coin);
+
         clear_screen(COLOR_BLACK);
         draw_bitmap(ship, player_x, player_y);
+        draw_sprite(coin);
         refresh_screen(60);
     }
 

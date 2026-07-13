@@ -14,8 +14,9 @@ and my understanding growing over time.
 
 ## How it works
 
-- The ship is loaded as a bitmap and drawn to the screen each frame.
+- The ship and coin are loaded from a SplashKit resource bundle.
 - The arrow keys move the ship around the window.
+- A spinning coin sits at a random spot — steer into it and it hops to a new one.
 - The screen clears and redraws at 60 frames per second.
 
 ## Controls
@@ -30,6 +31,7 @@ and my understanding growing over time.
 The game is built as a series of commits, each adding one idea on top of the last:
 
 - **Flying ship** — load a ship bitmap and move it around the window with the arrow keys.
+- **Collectible coin** — a spinning coin that jumps to a new random spot each time the ship touches it.
 
 ## Built with
 
