@@ -32,6 +32,7 @@ The game is built as a series of commits, each adding one idea on top of the las
 
 - **Flying ship** — load a ship bitmap and move it around the window with the arrow keys.
 - **Collectible coin** — a spinning coin that jumps to a new random spot each time the ship touches it.
+- **Cleaner structure** — split the game loop into separate input, update, and drawing functions.
 
 ## Built with
 
