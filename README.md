@@ -15,15 +15,18 @@ and my understanding growing over time.
 ## How it works
 
 - The ship and coin are loaded from a SplashKit resource bundle.
-- The arrow keys move the ship around the window.
-- A spinning coin sits at a random spot — steer into it and it hops to a new one.
+- The ship turns with the left and right keys and thrusts in the direction it faces, keeping its momentum.
+- Flying off one edge of the screen brings the ship back on the opposite side.
+- Reaching the spinning coin scores a point and sends the coin somewhere new.
 - The screen clears and redraws at 60 frames per second.
 
 ## Controls
 
 | Input | Action |
 |-------|--------|
-| Arrow keys | Move the ship |
+| Up arrow | Thrust forwards |
+| Down arrow | Thrust backwards |
+| Left / Right arrow | Turn the ship |
 | Close window | Quit |
 
 ## Development log
@@ -33,6 +36,7 @@ The game is built as a series of commits, each adding one idea on top of the las
 - **Flying ship** — load a ship bitmap and move it around the window with the arrow keys.
 - **Collectible coin** — a spinning coin that jumps to a new random spot each time the ship touches it.
 - **Cleaner structure** — split the game loop into separate input, update, and drawing functions.
+- **Scoring and momentum** — grouped the game's data into structs, gave the ship momentum and screen wrapping, and added a score for each coin collected.
 
 ## Built with
 
