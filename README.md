@@ -4,20 +4,21 @@ Planet Play is a space game built with C++ and SplashKit. You pilot a ship
 through space using the arrow keys — the foundation for a game I build up
 feature by feature across the project's history.
 
-I built this during my first year of Computer Science while learning C++ and the
-SplashKit graphics library. Rather than writing it all at once, I put it together
-in stages — each commit adds one new concept, working up from basic movement
-through structs, dynamic arrays, and classes — so the history shows both the game
-and my understanding growing over time.
+I built this during my first year of Computer Science, working through the Space
+Game example from SplashKit's [The Programmer's Field Guide](https://programmers.guide)
+chapter by chapter. Rather than writing it all at once, I committed each stage as
+I went — each one adding a new concept, working up from basic movement through
+structs, dynamic arrays, and classes — so the history shows both the game and my
+understanding growing over time.
 
 ![Planet Play screenshot](screenshot.png)
 
 ## How it works
 
-- The ship and coin are loaded from a SplashKit resource bundle.
+- The ship and coins are loaded from a SplashKit resource bundle.
 - The ship turns with the left and right keys and thrusts in the direction it faces, keeping its momentum.
 - Flying off one edge of the screen brings the ship back on the opposite side.
-- Reaching the spinning coin scores a point and sends the coin somewhere new.
+- Coins appear at random spots over time, and each one collected scores a point.
 - The screen clears and redraws at 60 frames per second.
 
 ## Controls
@@ -37,6 +38,7 @@ The game is built as a series of commits, each adding one idea on top of the las
 - **Collectible coin** — a spinning coin that jumps to a new random spot each time the ship touches it.
 - **Cleaner structure** — split the game loop into separate input, update, and drawing functions.
 - **Scoring and momentum** — grouped the game's data into structs, gave the ship momentum and screen wrapping, and added a score for each coin collected.
+- **Many coins at once** — swapped the single coin for a dynamic array, so coins spawn over time and are removed as they are collected.
 
 ## Built with
 

@@ -1,8 +1,10 @@
 #include "splashkit.h"
+#include "splashkit-arrays.h"
 
 const int SCREEN_SIZE = 600;
 const double THRUST = 0.5; // speed added each frame the up or down key is held
 const double ROTATE_SPEED = 5; // degrees the ship turns per frame
+const double RANDOM_CHANCE = 0.01; // chance of a new coin appearing each frame
 const string SHIP_NAME = "aquarii-v";
 
 struct player_data
@@ -14,7 +16,7 @@ struct player_data
 struct space_game_data
 {
     player_data player;
-    sprite coin;
+    dynamic_array<sprite> coins;
 };
 
 /**
@@ -69,26 +71,29 @@ void load_player(player_data &player)
 
 /**
  * Procedure: load_game
- * Purpose: Sets up the player and the first coin ready for a new game
+ * Purpose: Sets up the player ready for a new game, with no coins on screen yet
  *
  * @param game the game to set up, updated in place
  */
 void load_game(space_game_data &game)
 {
     load_player(game.player);
-    game.coin = new_coin();
 }
 
 /**
  * Procedure: end_game
- * Purpose: Frees the sprites the game created
+ * Purpose: Frees the ship and every coin still on screen
  *
  * @param game the game being closed down
  */
 void end_game(space_game_data &game)
 {
     free_sprite(game.player.ship);
-    free_sprite(game.coin);
+
+    for (int i = 0; i < length(game.coins); i++)
+    {
+        free_sprite(game.coins[i]);
+    }
 }
 
 /**
@@ -154,36 +159,55 @@ void wrap_sprite_offscreen(sprite &sprt)
 
 /**
  * Procedure: update_game
- * Purpose: Moves the sprites, wraps the ship at the edges, and scores a
- * point when the ship reaches the coin
+ * Purpose: Spawns new coins, moves everything, wraps the ship at the edges,
+ * and scores a point for each coin the ship reaches
  *
  * @param game the game to update, updated in place
  */
 void update_game(space_game_data &game)
 {
+    if (rnd() < RANDOM_CHANCE)
+    {
+        add(game.coins, new_coin());
+    }
+
+    for (int i = 0; i < length(game.coins); i++)
+    {
+        update_sprite(game.coins[i]);
+    }
+
     update_sprite(game.player.ship);
-    update_sprite(game.coin);
 
     wrap_sprite_offscreen(game.player.ship);
 
-    if (sprite_collision(game.player.ship, game.coin))
+    // Looping backwards means removing a coin cannot skip the next one.
+    for (int i = length(game.coins) - 1; i >= 0; i--)
     {
-        game.player.score++;
-        give_random_position(game.coin);
+        if (sprite_collision(game.coins[i], game.player.ship))
+        {
+            game.player.score++;
+            free_sprite(game.coins[i]);
+            remove(game.coins, i);
+        }
     }
 }
 
 /**
  * Procedure: draw_game
- * Purpose: Clears the screen and draws the score, coin, and ship
+ * Purpose: Clears the screen and draws the score, every coin, and the ship
  *
  * @param game the game to draw
  */
-void draw_game(const space_game_data &game)
+void draw_game(space_game_data &game)
 {
     clear_screen(COLOR_BLACK);
     draw_text("Score " + to_string(game.player.score), COLOR_WHITE, 10, 10);
-    draw_sprite(game.coin);
+
+    for (int i = 0; i < length(game.coins); i++)
+    {
+        draw_sprite(game.coins[i]);
+    }
+
     draw_sprite(game.player.ship);
     refresh_screen(60);
 }
