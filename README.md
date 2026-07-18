@@ -39,6 +39,7 @@ The game is built as a series of commits, each adding one idea on top of the las
 - **Cleaner structure** — split the game loop into separate input, update, and drawing functions.
 - **Scoring and momentum** — grouped the game's data into structs, gave the ship momentum and screen wrapping, and added a score for each coin collected.
 - **Many coins at once** — swapped the single coin for a dynamic array, so coins spawn over time and are removed as they are collected.
+- **Object-oriented design** — restructured the game into coin, player, and space_game classes, each owning its own data and behaviour.
 
 ## Built with
 
